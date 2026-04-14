@@ -1,5 +1,5 @@
 import "./Loader.css";
-import loader from "../../assets/images/loader.gif";
+import loader from "../../assets/loader.gif";
 
 function Loader() {
     return (

@@ -2,3 +2,18 @@
     text-align: center;
     padding: 20px;
 }
+
+.Header h1 {
+    margin-bottom: 15px;
+}
+
+.Header nav a {
+    text-decoration: none;
+    color: black;
+    margin: 0 5px;
+    font-weight: bold;
+}
+
+.Header nav a.active {
+    color: dodgerblue;
+}
