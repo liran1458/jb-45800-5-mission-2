@@ -3,6 +3,7 @@ import "./Home.css";
 import Loader from "../../common/Loader/Loader";
 import type CityModel from "../../models/cityModel";
 import type WeatherModel from "../../models/weatherModel";
+import type SearchHistoryModel from "../../models/searchHistoryModel";
 import cityService from "../../services/cityService";
 import weatherService from "../../services/weatherService";
 
@@ -36,7 +37,7 @@ function Home() {
 
             setIsLoading(true);
 
-            const data = await weatherService.getCurrentWeather(selectedCity);
+            const data = await weatherService.getCurrentWeather(`${selectedCity}, Israel`);
 
             const weatherData: WeatherModel = {
                 country: data.location.country,
@@ -48,6 +49,22 @@ function Home() {
             };
 
             setWeather(weatherData);
+
+            // 🔥 שמירה ב-localStorage
+            const newHistoryItem: SearchHistoryModel = {
+                dateTime: new Date().toLocaleString(),
+                city: data.location.name,
+                country: data.location.country
+            };
+
+            const historyFromStorage = localStorage.getItem("weatherHistory");
+            const historyArray: SearchHistoryModel[] = historyFromStorage
+                ? JSON.parse(historyFromStorage)
+                : [];
+
+            historyArray.push(newHistoryItem);
+
+            localStorage.setItem("weatherHistory", JSON.stringify(historyArray));
         }
         catch (err) {
             alert("Failed to load weather");
