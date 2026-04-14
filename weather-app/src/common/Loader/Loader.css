@@ -1,9 +1,11 @@
 .Loader {
     display: flex;
     justify-content: center;
-    margin-top: 40px;
+    align-items: center;
+    margin: 20px 0;
 }
 
 .Loader img {
     width: 80px;
+    height: 80px;
 }

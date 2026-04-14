@@ -28,8 +28,8 @@ function History() {
                 </thead>
 
                 <tbody>
-                    {history.map((item, index) => (
-                        <tr key={index}>
+                    {history.map((item) => (
+                        <tr key={item.dateTime + item.city}>
                             <td>{item.dateTime}</td>
                             <td>{item.city}</td>
                             <td>{item.country}</td>

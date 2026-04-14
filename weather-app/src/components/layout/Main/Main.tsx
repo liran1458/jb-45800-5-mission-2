@@ -1,8 +1,9 @@
+import "./Main.css";
 import { Navigate, Route, Routes } from "react-router-dom";
-import Home from "../Home/Home";
-import History from "../History/History";
-import About from "../About/About";
-import NotFound from "../NotFound/NotFound";
+import Home from "../../Home/Home";
+import History from "../../History/History";
+import About from "../../About/About";
+import NotFound from "../../NotFound/NotFound";
 
 function Main() {
     return (

@@ -23,7 +23,7 @@ function Home() {
             const allCities = await cityService.getAllCities();
             setCities(allCities);
         }
-        catch (err) {
+        catch {
             alert("Failed to load cities");
         }
         finally {
@@ -34,6 +34,8 @@ function Home() {
     async function handleSelectChange(args: React.ChangeEvent<HTMLSelectElement>) {
         try {
             const selectedCity = args.target.value;
+
+            if (!selectedCity) return;
 
             setIsLoading(true);
 
@@ -50,7 +52,6 @@ function Home() {
 
             setWeather(weatherData);
 
-            // 🔥 שמירה ב-localStorage
             const newHistoryItem: SearchHistoryModel = {
                 dateTime: new Date().toLocaleString(),
                 city: data.location.name,
@@ -63,10 +64,9 @@ function Home() {
                 : [];
 
             historyArray.push(newHistoryItem);
-
             localStorage.setItem("weatherHistory", JSON.stringify(historyArray));
         }
-        catch (err) {
+        catch {
             alert("Failed to load weather");
         }
         finally {
@@ -85,11 +85,19 @@ function Home() {
                     Select City
                 </option>
 
-                {cities.map((city, index) => (
-                    <option key={index} value={city.city_name_en}>
-                        {city.city_name_he}
-                    </option>
-                ))}
+                {cities.map((city) => {
+                    const isHebrew = /[\u0590-\u05FF]/.test(city.city_name_he);
+
+                    return (
+                        <option
+                            key={city.city_name_en}
+                            value={city.city_name_en}
+                            dir={isHebrew ? "rtl" : "ltr"}
+                        >
+                            {city.city_name_he}
+                        </option>
+                    );
+                })}
             </select>
 
             {weather && (
